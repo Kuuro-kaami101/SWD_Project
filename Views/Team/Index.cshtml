@@ -10,7 +10,7 @@
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
-      <form asp-controller="Teams" asp-action="Index">
+      <form asp-controller="Team" asp-action="Index">
     <p>
         Name: <input type="text" name="SearchString" />
         <input type="submit" value="Search" />
@@ -55,7 +55,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <a class="nav-link text-blue" asp-area="" asp-controller="Knowledge" asp-action="Index" asp-route-id="@item.TeamId">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Po)

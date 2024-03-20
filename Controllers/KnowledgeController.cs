@@ -21,19 +21,15 @@ namespace SWD_Project.Controllers
         // GET: Knowledges
         public async Task<IActionResult> Index(int id, string searchString)
         {
-            // Retrieve the list of knowledge items filtered by team ID
             var knowledgeQuery = _context.Knowledges.Where(k => k.TeamId == id);
 
-            // Filter the knowledge items based on the search string if it's provided
             if (!string.IsNullOrEmpty(searchString))
             {
                 knowledgeQuery = knowledgeQuery.Where(k => k.Title.Contains(searchString));
             }
 
-            // Execute the query and retrieve the list of knowledge items
             var listKnowledge = await knowledgeQuery.ToListAsync();
 
-            // Pass the filtered list to the view
             return View(listKnowledge);
         }
 
