@@ -19,9 +19,21 @@ namespace SWD_Project.Controllers
         }
 
         // GET: Knowledges
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index(int id, string searchString)
         {
-            var listKnowledge = _context.Knowledges.Where(k => k.TeamId == id).ToList();
+            // Retrieve the list of knowledge items filtered by team ID
+            var knowledgeQuery = _context.Knowledges.Where(k => k.TeamId == id);
+
+            // Filter the knowledge items based on the search string if it's provided
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                knowledgeQuery = knowledgeQuery.Where(k => k.Title.Contains(searchString));
+            }
+
+            // Execute the query and retrieve the list of knowledge items
+            var listKnowledge = await knowledgeQuery.ToListAsync();
+
+            // Pass the filtered list to the view
             return View(listKnowledge);
         }
 
@@ -154,14 +166,19 @@ namespace SWD_Project.Controllers
             {
                 _context.Knowledges.Remove(knowledge);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool KnowledgeExists(int id)
         {
-          return (_context.Knowledges?.Any(e => e.KnowledgeId == id)).GetValueOrDefault();
+            return (_context.Knowledges?.Any(e => e.KnowledgeId == id)).GetValueOrDefault();
         }
+
+     
     }
 }
+
+
+
