@@ -9,11 +9,11 @@ using SWD_Project.Models;
 
 namespace SWD_Project.Controllers
 {
-    public class KnowledgesController : Controller
+    public class KnowledgeController : Controller
     {
         private readonly Swd392Context _context;
 
-        public KnowledgesController(Swd392Context context)
+        public KnowledgeController(Swd392Context context)
         {
             _context = context;
         }
