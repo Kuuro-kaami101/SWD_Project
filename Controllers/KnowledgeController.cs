@@ -19,10 +19,10 @@ namespace SWD_Project.Controllers
         }
 
         // GET: Knowledges
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var swd392Context = _context.Knowledges.Include(k => k.Team);
-            return View(await swd392Context.ToListAsync());
+            var listKnowledge = _context.Knowledges.Where(k => k.TeamId == id).ToList();
+            return View(listKnowledge);
         }
 
         // GET: Knowledges/Details/5
