@@ -4,12 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>List team</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
+      <form asp-controller="Teams" asp-action="Index">
+    <p>
+        Name: <input type="text" name="SearchString" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
     <thead>
         <tr>
             <th>
@@ -49,7 +55,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a class="nav-link text-dark" asp-area="" asp-controller="Knowledge" asp-action="Index" asp-route-id="@item.TeamId">@Html.DisplayFor(modelItem => item.Name)</a>
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Po)
